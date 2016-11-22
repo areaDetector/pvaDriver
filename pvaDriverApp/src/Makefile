@@ -19,7 +19,7 @@ LIB_SRCS += pvaDriver.cpp
 
 DBD += pvaDriverSupport.dbd
 
-include $(TOP)/ADApp/commonLibraryMakefile
+include $(ADCORE)/ADApp/commonLibraryMakefile
 
 #=============================
 
