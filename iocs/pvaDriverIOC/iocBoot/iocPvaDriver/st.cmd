@@ -44,7 +44,7 @@ asynSetMinTimerPeriod(0.001)
 pvaDriverConfig("$(PORT)", "$(PVNAME)", $(QSIZE), 0, 0)
 #asynSetTraceMask $(PORT) 0 0xFF
 #asynSetTraceInfoMask $(PORT) 0 0x7
-dbLoadRecords("pvaDriver.template","P=$(PREFIX),R=cam1:,PORT=$(PORT),ADDR=0,TIMEOUT=1")
+dbLoadRecords("$(PVADRIVER)/db/pvaDriver.template","P=$(PREFIX),R=cam1:,PORT=$(PORT),ADDR=0,TIMEOUT=1")
 
 # Create a standard arrays plugin, set it to get data from the pvaDriver.
 NDStdArraysConfigure("Image1", 3, 0, "$(PORT)", 0)
@@ -61,7 +61,7 @@ dbLoadRecords("NDStdArrays.template", "P=$(PREFIX),R=image1:,PORT=Image1,ADDR=0,
 
 # Load all other plugins using commonPlugins.cmd
 < $(ADCORE)/iocBoot/commonPlugins.cmd
-set_requestfile_path("$(ADEXAMPLE)/exampleApp/Db")
+set_requestfile_path("$(PVADRIVER)/pvaDriverApp/Db")
 
 iocInit()
 
