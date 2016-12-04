@@ -62,6 +62,7 @@ pvaDriver::pvaDriver (const char *portName, const char *pvName,
       m_thisPtr(tr1::shared_ptr<pvaDriver>(this))
 {
     int status = asynSuccess;
+    char versionString[20];
     const char *functionName = "pvaDriver";
 
     lock();
@@ -72,6 +73,15 @@ pvaDriver::pvaDriver (const char *portName, const char *pvName,
     /* Set some default values for parameters */
     status =  setStringParam (ADManufacturer, "PVAccess driver");
     status |= setStringParam (ADModel, "Basic PVAccess driver");
+    epicsSnprintf(versionString, sizeof(versionString), "%d.%d.%d", 
+                  DRIVER_VERSION, DRIVER_REVISION, DRIVER_MODIFICATION);
+    status |= setStringParam(NDDriverVersion, versionString);
+    // We use the PvAccess version as the SDK version
+    epicsSnprintf(versionString, sizeof(versionString), "%d.%d.%d", 
+                  EPICS_PVA_MAJOR_VERSION, EPICS_PVA_MINOR_VERSION, EPICS_PVA_MAINTENANCE_VERSION);
+    status |= setStringParam(ADSDKVersion, versionString);
+    status |= setStringParam(ADSerialNumber, "No serial number");
+    status |= setStringParam(ADFirmwareVersion, "No firmware");
     status |= setIntegerParam(ADMaxSizeX, 0);
     status |= setIntegerParam(ADMaxSizeY, 0);
     status |= setIntegerParam(ADMinX, 0);

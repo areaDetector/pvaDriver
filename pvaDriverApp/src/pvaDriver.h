@@ -6,6 +6,10 @@
 #define PVAPvNameString             "PV_NAME"
 #define PVAPvConnectionStatusString "PV_CONNECTION"
 
+#define DRIVER_VERSION      1
+#define DRIVER_REVISION     1
+#define DRIVER_MODIFICATION 0
+
 class pvaDriver;
 
 typedef epics::pvAccess::Channel::shared_pointer ChannelPtr;
