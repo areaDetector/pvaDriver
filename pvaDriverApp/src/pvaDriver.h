@@ -46,7 +46,7 @@ private:
     epics::pvData::PVStructurePtr m_pvRequest;
     epics::pvData::MonitorPtr m_monitor;
     pvaDriverPtr m_thisPtr;
-    asynStatus connectPv();
+    asynStatus connectPv(std::string const & pvName);
 
     // Implemented for pvData::Requester
     std::string getRequesterName (void);
