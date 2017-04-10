@@ -58,7 +58,7 @@ pvaDriver::pvaDriver (const char *portName, const char *pvName,
             priority, stackSize),
       m_pvName(pvName), m_request(DEFAULT_REQUEST),
       m_priority(ChannelProvider::PRIORITY_DEFAULT),
-      m_channel(),
+      m_channel(), m_pvRequest(CreateRequest::create()->createRequest(m_request)),
       m_thisPtr(tr1::shared_ptr<pvaDriver>(this))
 {
     int status = asynSuccess;
