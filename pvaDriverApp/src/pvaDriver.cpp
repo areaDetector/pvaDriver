@@ -58,7 +58,7 @@ pvaDriver::pvaDriver (const char *portName, const char *pvName,
             priority, stackSize),
       m_pvName(pvName), m_request(DEFAULT_REQUEST),
       m_priority(ChannelProvider::PRIORITY_DEFAULT),
-      m_channel(),
+      m_channel(), m_pvRequest(CreateRequest::create()->createRequest(m_request)),
       m_thisPtr(tr1::shared_ptr<pvaDriver>(this))
 {
     int status = asynSuccess;
@@ -105,30 +105,23 @@ pvaDriver::pvaDriver (const char *portName, const char *pvName,
                 "%s::%s unable to set driver parameters\n",
                 driverName, functionName);
 
-    try
-    {
-        ClientFactory::start();
-        m_provider = getChannelProviderRegistry()->getProvider("pva");
-        m_pvRequest = CreateRequest::create()->createRequest(m_request);
-        connectPv();
-    }
-    catch (exception &ex)
-    {
-        asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-                "%s::%s exception initializing monitor: %s\n",
-                driverName, functionName, ex.what());
-    }
+    ClientFactory::start();
+    m_provider = getChannelProviderRegistry()->getProvider("pva");
+    connectPv(pvName);
+
     unlock();
 }
 
-asynStatus pvaDriver::connectPv()
+asynStatus pvaDriver::connectPv(std::string const & pvName)
 {
+    ChannelPtr channel;
+    MonitorPtr monitor;
+
     static const char *functionName = "connectPv";
     try
     {
-        if (m_channel) m_channel->destroy();
-        m_channel = m_provider->createChannel(m_pvName, m_thisPtr, m_priority);
-        m_monitor = m_channel->createMonitor(m_thisPtr, m_pvRequest);
+        channel = m_provider->createChannel(pvName, m_thisPtr, m_priority);
+        monitor = channel->createMonitor(m_thisPtr, m_pvRequest);
     }
     catch (exception &ex)
     {
@@ -137,6 +130,13 @@ asynStatus pvaDriver::connectPv()
                 driverName, functionName, ex.what());
         return asynError;
     }
+
+    m_pvName = pvName;
+    if(m_channel)
+        m_channel->destroy();
+    m_channel = channel;
+    m_monitor = monitor;
+
     return asynSuccess;
 }
 
@@ -397,37 +397,37 @@ asynStatus pvaDriver::writeInt32(asynUser *pasynUser, epicsInt32 value)
   * \param[out] nActual Number of characters actually written. */
 asynStatus pvaDriver::writeOctet(asynUser *pasynUser, const char *value, size_t nChars, size_t *nActual)
 {
-  int function = pasynUser->reason;
-  asynStatus status = asynSuccess;
-  const char *functionName = "writeOctet";
+    int function = pasynUser->reason;
+    asynStatus status = asynSuccess;
+    const char *functionName = "writeOctet";
 
-  // Set the parameter in the parameter library.
-  status = (asynStatus)setStringParam(function, (char *)value);
-  if (status != asynSuccess) return(status);
+    // Set the parameter in the parameter library.
+    status = (asynStatus)setStringParam(function, (char *)value);
 
-  if (function == PVAPvName){
-     m_pvName = value;
-     status = connectPv();
-  } 
-  else if (function < FIRST_PVA_DRIVER_PARAM) {
-      /* If this parameter belongs to a base class call its method */
-      status = ADDriver::writeOctet(pasynUser, value, nChars, nActual);
-  }
+    if (function == PVAPvName){
+        if((status = connectPv(value)))
+            status = (asynStatus)setStringParam(function, m_pvName);
+    }
+    else if (function < FIRST_PVA_DRIVER_PARAM) {
+        /* If this parameter belongs to a base class call its method */
+        status = ADDriver::writeOctet(pasynUser, value, nChars, nActual);
+    }
 
-  // Do callbacks so higher layers see any changes
-  callParamCallbacks();
+    if (status){
+        epicsSnprintf(pasynUser->errorMessage, pasynUser->errorMessageSize,
+                "%s:%s: status=%d, function=%d, value=%s",
+                driverName, functionName, status, function, value);
+    } else {
+        asynPrint(pasynUser, ASYN_TRACEIO_DRIVER,
+                "%s:%s: function=%d, value=%s\n",
+                driverName, functionName, function, value);
+    }
 
-  if (status){
-    epicsSnprintf(pasynUser->errorMessage, pasynUser->errorMessageSize,
-                  "%s:%s: status=%d, function=%d, value=%s",
-                  driverName, functionName, status, function, value);
-  } else {
-    asynPrint(pasynUser, ASYN_TRACEIO_DRIVER,
-              "%s:%s: function=%d, value=%s\n",
-              driverName, functionName, function, value);
-  }
-  *nActual = nChars;
-  return status;
+    // Do callbacks so higher layers see any changes
+    callParamCallbacks();
+
+    *nActual = nChars;
+    return status;
 }
 
 void pvaDriver::report (FILE *fp, int details)
