@@ -16,6 +16,11 @@ files respectively, in the configure/ directory of the appropriate release of th
 Release Notes
 =============
 
+R1-2 (May 9, 2017)
+====================
+* Reject invalid PV name when creating monitor.
+
+
 R1-1 (February 22, 2017)
 ====================
 * Added new parameters ADSerialNumber, ADFirmwareVersion, ADSDKVersion, NDDriverVersion. 
