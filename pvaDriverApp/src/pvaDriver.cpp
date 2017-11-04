@@ -312,9 +312,7 @@ void pvaDriver::monitorEvent (MonitorPtr const & monitor)
             asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
                       "%s::%s Callback with NDArray (%p)\n",
                       driverName, functionName, pImage);
-            unlock();
             doCallbacksGenericPointer(pImage, NDArrayData, 0);
-            lock();
         }
 
         // Update the counters after doCallbacksGenericPointer()
