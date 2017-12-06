@@ -14,6 +14,7 @@
 #include <pv/clientFactory.h>
 #include <pv/pvAccess.h>
 #include <pv/ntndarray.h>
+#include <pv/pvaVersion.h>
 
 #include <ntndArrayConverter.h>
 
@@ -106,7 +107,11 @@ pvaDriver::pvaDriver (const char *portName, const char *pvName,
                 driverName, functionName);
 
     ClientFactory::start();
-    m_provider = getChannelProviderRegistry()->getProvider("pva");
+    if (EPICS_PVA_MAJOR_VERSION >= 6) {
+        m_provider = ChannelProviderRegistry::clients()->getProvider("pva");
+    } else {
+        m_provider = getChannelProviderRegistry()->getProvider("pva");
+    }
     connectPv(pvName);
 
     unlock();
