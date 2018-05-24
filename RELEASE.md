@@ -16,6 +16,11 @@ files respectively, in the configure/ directory of the appropriate release of th
 Release Notes
 =============
 
+R1-4 (May 24, 2018)
+====================
+* Changes to work with EPICS base 7.0, i.e. EPICS_PVA_MAJOR_VERSION >= 6.
+* Removed unlocking around doCallbacksGenericPointer, not needed and can be unsafe.
+
 R1-3 (July 5, 2017)
 ====================
 * Change startup scripts in iocPvaDriver.  st.cmd now loads envPaths and st_base.cmd, so it can be
