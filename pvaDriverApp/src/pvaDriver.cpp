@@ -265,7 +265,7 @@ void pvaDriver::monitorEvent (MonitorPtr const & monitor)
             asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
                     "%s::%s failed to alloc new NDArray"
                     " - memory pool exhausted? (free: %d)\n",
-                    driverName, functionName, pNDArrayPool->numFree());
+                    driverName, functionName, pNDArrayPool->getNumFree());
             monitor->release(update);
             continue;
         }
