@@ -16,6 +16,12 @@ files respectively, in the configure/ directory of the appropriate release of th
 Release Notes
 =============
 
+R1-5 (June XXX, 2018)
+====================
+* Improved medm files and added autoconversion to opi, ui, and edl.
+* Minor change to work with ADCore R4-0.
+
+
 R1-4 (May 24, 2018)
 ====================
 * Changes to work with EPICS base 7.0, i.e. EPICS_PVA_MAJOR_VERSION >= 6.
