@@ -1,6 +1,6 @@
 
 file {
-	name="/home/epics/devel/areaDetector-3-2/pvaDriver/pvaDriverApp/op/adl/ADPvaDriver.adl"
+	name="/home/epics/devel/areaDetector-3-3-1/pvaDriver/pvaDriverApp/op/adl/ADPvaDriver.adl"
 	version=030109
 }
 display {
@@ -8,7 +8,7 @@ display {
 		x=634
 		y=45
 		width=715
-		height=775
+		height=800
 	}
 	clr=14
 	bclr=4
@@ -108,7 +108,7 @@ text {
 	"basic attribute" {
 		clr=54
 	}
-	textix="Area Detector Control - $(P)$(R)"
+	textix="pvaDriver - $(P)$(R)"
 	align="horiz. centered"
 }
 composite {
@@ -123,16 +123,6 @@ composite {
 }
 composite {
 	object {
-		x=360
-		y=660
-		width=350
-		height=110
-	}
-	"composite name"=""
-	"composite file"="ADAttrFile.adl"
-}
-composite {
-	object {
 		x=5
 		y=380
 		width=350
@@ -140,16 +130,6 @@ composite {
 	}
 	"composite name"=""
 	"composite file"="ADPlugins.adl"
-}
-composite {
-	object {
-		x=360
-		y=390
-		width=350
-		height=135
-	}
-	"composite name"=""
-	"composite file"="ADBuffers.adl"
 }
 rectangle {
 	object {
@@ -802,159 +782,6 @@ text {
 	textix="Acquire"
 	align="horiz. right"
 }
-rectangle {
-	object {
-		x=360
-		y=530
-		width=350
-		height=125
-	}
-	"basic attribute" {
-		clr=14
-		fill="outline"
-	}
-}
-"text update" {
-	object {
-		x=614
-		y=559
-		width=80
-		height=18
-	}
-	monitor {
-		chan="$(P)$(R)OverrunCounter_RBV"
-		clr=54
-		bclr=4
-	}
-	limits {
-	}
-}
-text {
-	object {
-		x=394
-		y=558
-		width=150
-		height=20
-	}
-	"basic attribute" {
-		clr=14
-	}
-	textix="Overrun counter"
-	align="horiz. right"
-}
-"text entry" {
-	object {
-		x=549
-		y=558
-		width=60
-		height=20
-	}
-	control {
-		chan="$(P)$(R)OverrunCounter"
-		clr=14
-		bclr=51
-	}
-	limits {
-	}
-}
-text {
-	object {
-		x=405
-		y=630
-		width=130
-		height=20
-	}
-	"basic attribute" {
-		clr=14
-	}
-	textix="PV Connection"
-	align="horiz. right"
-}
-"text update" {
-	object {
-		x=540
-		y=631
-		width=100
-		height=18
-	}
-	monitor {
-		chan="$(P)$(R)PvConnection_RBV"
-		clr=54
-		bclr=4
-	}
-	format="string"
-	limits {
-	}
-}
-rectangle {
-	object {
-		x=483
-		y=532
-		width=105
-		height=21
-	}
-	"basic attribute" {
-		clr=2
-	}
-}
-text {
-	object {
-		x=490
-		y=533
-		width=90
-		height=20
-	}
-	"basic attribute" {
-		clr=54
-	}
-	textix="pvaDriver"
-	align="horiz. centered"
-}
-"text update" {
-	object {
-		x=540
-		y=583
-		width=160
-		height=18
-	}
-	monitor {
-		chan="$(P)$(R)PvName_RBV"
-		clr=54
-		bclr=4
-	}
-	format="string"
-	limits {
-	}
-}
-text {
-	object {
-		x=465
-		y=605
-		width=70
-		height=20
-	}
-	"basic attribute" {
-		clr=14
-	}
-	textix="PV Name"
-	align="horiz. right"
-}
-"text entry" {
-	object {
-		x=540
-		y=605
-		width=160
-		height=20
-	}
-	control {
-		chan="$(P)$(R)PvName"
-		clr=14
-		bclr=51
-	}
-	format="string"
-	limits {
-	}
-}
 text {
 	object {
 		x=395
@@ -1130,15 +957,15 @@ menu {
 }
 text {
 	object {
-		x=375
+		x=385
 		y=183
-		width=160
+		width=150
 		height=20
 	}
 	"basic attribute" {
 		clr=14
 	}
-	textix="# active plugins"
+	textix="# Queued arrays"
 	align="horiz. right"
 }
 "text update" {
@@ -1149,7 +976,7 @@ text {
 		height=18
 	}
 	monitor {
-		chan="$(P)$(R)NumActivePlugins"
+		chan="$(P)$(R)NumQueuedArrays"
 		clr=54
 		bclr=4
 	}
@@ -1212,4 +1039,177 @@ text {
 	format="string"
 	limits {
 	}
+}
+composite {
+	object {
+		x=360
+		y=390
+		width=350
+		height=160
+	}
+	"composite name"=""
+	"composite file"="ADBuffers.adl"
+}
+rectangle {
+	object {
+		x=360
+		y=555
+		width=350
+		height=125
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+	}
+}
+"text update" {
+	object {
+		x=614
+		y=584
+		width=80
+		height=18
+	}
+	monitor {
+		chan="$(P)$(R)OverrunCounter_RBV"
+		clr=54
+		bclr=4
+	}
+	limits {
+	}
+}
+text {
+	object {
+		x=394
+		y=583
+		width=150
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Overrun counter"
+	align="horiz. right"
+}
+"text entry" {
+	object {
+		x=549
+		y=583
+		width=60
+		height=20
+	}
+	control {
+		chan="$(P)$(R)OverrunCounter"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+text {
+	object {
+		x=405
+		y=655
+		width=130
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="PV Connection"
+	align="horiz. right"
+}
+"text update" {
+	object {
+		x=540
+		y=656
+		width=100
+		height=18
+	}
+	monitor {
+		chan="$(P)$(R)PvConnection_RBV"
+		clr=54
+		bclr=4
+	}
+	format="string"
+	limits {
+	}
+}
+rectangle {
+	object {
+		x=483
+		y=557
+		width=105
+		height=21
+	}
+	"basic attribute" {
+		clr=2
+	}
+}
+text {
+	object {
+		x=490
+		y=558
+		width=90
+		height=20
+	}
+	"basic attribute" {
+		clr=54
+	}
+	textix="pvaDriver"
+	align="horiz. centered"
+}
+"text update" {
+	object {
+		x=540
+		y=608
+		width=160
+		height=18
+	}
+	monitor {
+		chan="$(P)$(R)PvName_RBV"
+		clr=54
+		bclr=4
+	}
+	format="string"
+	limits {
+	}
+}
+text {
+	object {
+		x=465
+		y=630
+		width=70
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="PV Name"
+	align="horiz. right"
+}
+"text entry" {
+	object {
+		x=540
+		y=630
+		width=160
+		height=20
+	}
+	control {
+		chan="$(P)$(R)PvName"
+		clr=14
+		bclr=51
+	}
+	format="string"
+	limits {
+	}
+}
+composite {
+	object {
+		x=360
+		y=685
+		width=350
+		height=110
+	}
+	"composite name"=""
+	"composite file"="ADAttrFile.adl"
 }
