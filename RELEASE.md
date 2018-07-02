@@ -16,16 +16,18 @@ files respectively, in the configure/ directory of the appropriate release of th
 Release Notes
 =============
 
-R1-5 (June XXX, 2018)
+R1-5 (July 2, 2018)
 ====================
-* Improved medm files and added autoconversion to opi, ui, and edl.
-* Minor change to work with ADCore R4-0.
+* Added support for new PVs in ADCore R3-3 in opi files (NumQueuedArrays, EmptyFreeList, etc.)
+* Improved op/*/autoconvert/* files with better medm files and better converters.
+* Minor change to work with ADCore R3-3.
 
 
 R1-4 (May 24, 2018)
 ====================
 * Changes to work with EPICS base 7.0, i.e. EPICS_PVA_MAJOR_VERSION >= 6.
 * Removed unlocking around doCallbacksGenericPointer, not needed and can be unsafe.
+
 
 R1-3 (July 5, 2017)
 ====================
