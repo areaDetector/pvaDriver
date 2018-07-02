@@ -7,7 +7,7 @@
 #define PVAPvConnectionStatusString "PV_CONNECTION"
 
 #define DRIVER_VERSION      1
-#define DRIVER_REVISION     4
+#define DRIVER_REVISION     5
 #define DRIVER_MODIFICATION 0
 
 class pvaDriver;
