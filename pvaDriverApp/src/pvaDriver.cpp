@@ -288,11 +288,11 @@ void pvaDriver::monitorEvent (MonitorPtr const & monitor)
                       driverName, functionName);
             converter.toArray(pImage);
         }
-        catch(...)
+        catch(exception& e)
         {
             asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-                    "%s::%s failed to convert NTNDArray into NDArray\n",
-                    driverName, functionName);
+                    "%s::%s failed to convert NTNDArray into NDArray: %s\n",
+                    driverName, functionName, e.what());
             pImage->release();
             monitor->release(update);
             lock();
