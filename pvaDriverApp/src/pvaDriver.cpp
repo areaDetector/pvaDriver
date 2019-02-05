@@ -241,18 +241,28 @@ void pvaDriver::monitorEvent (MonitorPtr const & monitor)
             continue;
         }
 
-        NTNDArrayConverter converter(NTNDArray::wrap(update->pvStructurePtr));
+        NTNDArrayPtr array(NTNDArray::wrap(update->pvStructurePtr));
+
+        if (!array) {
+            asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+                    "%s::%s failed to wrap update in NTNDArray. Incorrect type?\n",
+                    driverName, functionName);
+            monitor->release(update);
+            continue;
+        }
+
+        NTNDArrayConverter converter(array);
         NTNDArrayInfo_t info;
 
         try
         {
             info = converter.getInfo();
         }
-        catch(...)
+        catch(exception& e)
         {
             asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-                    "%s::%s failed to get info from NTNDArray\n",
-                    driverName, functionName);
+                    "%s::%s failed to get info from NTNDArray: %s\n",
+                    driverName, functionName, e.what());
             monitor->release(update);
             continue;
         }
