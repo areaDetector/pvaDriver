@@ -16,6 +16,11 @@ files respectively, in the configure/ directory of the appropriate release of th
 Release Notes
 =============
 
+R1-6 (February XXX, 2019)
+====================
+* Improve NTNDArray exception handling.
+
+
 R1-5 (July 2, 2018)
 ====================
 * Added support for new PVs in ADCore R3-3 in opi files (NumQueuedArrays, EmptyFreeList, etc.)
