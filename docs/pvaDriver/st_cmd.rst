@@ -1,7 +1,7 @@
 Example st.cmd Startup File
 ===========================
 
-``st.cmd```
+``st.cmd``
 
 .. literalinclude:: ../../../pvaDriver/iocs/pvaDriverIOC/iocBoot/iocPvaDriver/st.cmd
 
