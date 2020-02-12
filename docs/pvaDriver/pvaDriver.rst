@@ -99,8 +99,13 @@ the detailed documentation on the ``pvaDriverConfig`` function in the
 `pvaDriver.cpp documentation`_ and in the documentation for the constructor
 for the `pvaDriver class`_.
 
-There is an example IOC boot directory and startup script provided with
-areaDetector: :doc:`st_cmd`.
+Example st.cmd startup file
+---------------------------
+
+There is an example IOC boot directory and startup script provided with pvaDriver: :doc:`st_cmd`.
+
+MEDM screens
+------------
 
 The MEDM screen for the pvaDriver is shown below.
 
