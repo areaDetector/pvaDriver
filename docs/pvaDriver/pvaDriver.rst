@@ -1,5 +1,7 @@
-areaDetector pvAccess driver
-============================
+pvaDriver
+=========
+
+An areaDetector pvAccess driver
 
 :author: Bruno Martins, Brookhaven National Laboratory
 
@@ -41,7 +43,7 @@ The pvAccess driver-specific parameters are the following:
 .. cssclass:: table-bordered table-striped table-hover
 .. flat-table::
   :header-rows: 2
-
+  :widths: 14 10 5 28 10 18 15
 
   * -
     -
@@ -98,14 +100,14 @@ the detailed documentation on the ``pvaDriverConfig`` function in the
 for the `pvaDriver class`_.
 
 There is an example IOC boot directory and startup script provided with
-areaDetector.
+areaDetector: :doc:`st_cmd`.
 
 The MEDM screen for the pvaDriver is shown below.
 
 .. image:: ADPvaDriver.png
 
 
-.. _pvaDriver.cpp documentation: https://areadetector.github.io/master/areaDetectorDoxygenHTML/pva_driver_8cpp.html
-.. _asynNDArrayDriver.h: https://areadetector.github.io/master/areaDetectorDoxygenHTML/asyn_n_d_array_driver_8h.html
-.. _ADArrayDriver.h: https://areadetector.github.io/master/areaDetectorDoxygenHTML/_a_d_driver_8h.html
-.. _pvaDriver class: https://areadetector.github.io/master/areaDetectorDoxygenHTML/classpva_driver.html
+.. _pvaDriver.cpp documentation: ../areaDetectorDoxygenHTML/pva_driver_8cpp.html
+.. _asynNDArrayDriver.h: ../areaDetectorDoxygenHTML/asyn_n_d_array_driver_8h.html
+.. _ADArrayDriver.h: ../areaDetectorDoxygenHTML/_a_d_driver_8h.html
+.. _pvaDriver class: ../areaDetectorDoxygenHTML/classpva_driver.html
