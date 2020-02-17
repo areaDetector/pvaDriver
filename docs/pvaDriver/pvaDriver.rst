@@ -17,20 +17,20 @@ PV.
 This driver inherits from :doc:`../ADCore/ADDriver`. It implements some of the
 parameters in `asynNDArrayDriver.h`_ and in `ADArrayDriver.h`_, namely:
 
-+ ``ADManufacturer``
-+ ``ADModel``
-+ ``ADAcquire``
-+ ``ADImageMode``
-+ ``ADNumImages``
-+ ``ADMaxSizeX`` and ``ADMaxSizeY``
-+ ``ADMinX`` and ``ADMinY``
-+ ``ADBinX`` and ``ADBinY``
-+ ``ADReverseX`` and ``ADReverseY``
-+ ``ADSizeX`` and ``ADSizeY``
-+ ``ADNumImagesCounter``
-+ ``NDArraySize``, ``NDArraySizeX`` and ``NDArraySizeY``
-+ ``NDDataType`` and ``NDColorMode``
-+ ``NDArrayCounter``
++ ADManufacturer
++ ADModel
++ ADAcquire
++ ADImageMode
++ ADNumImages
++ ADMaxSizeX and ADMaxSizeY
++ ADMinX and ADMinY
++ ADBinX and ADBinY
++ ADReverseX and ADReverseY
++ ADSizeX and ADSizeY
++ ADNumImagesCounter
++ NDArraySize, NDArraySizeX and NDArraySizeY
++ NDDataType and NDColorMode
++ NDArrayCounter
 
 It also implements a few parameters that are specific to the pvAccess driver.
 
@@ -43,39 +43,23 @@ The pvAccess driver-specific parameters are the following:
 .. cssclass:: table-bordered table-striped table-hover
 .. flat-table::
   :header-rows: 2
-  :widths: 14 10 5 28 10 18 15
+  :widths: 60 20 20
 
   * -
     -
     - **Parameter Definitions in pvaDriver.cpp and EPICS Record Definitions**
       **in pvaDriver.template**
-  * - Parameter index variable
-    - asyn interface
-    - Access
-    - Description
-    - drvInfo string
+  * - Description
     - EPICS record name
     - EPICS record type
-  * - OverrunCounter
-    - asynInt32
-    - r/w
-    - Number of overruns occured
-    - ``OVERRUN_COUNTER``
-    - ``$(P)$(R)OverrunCounter``, ``$(P)$(R)OverrunCounter_RBV``
+  * - Number of overruns occurred
+     - $(P)$(R)OverrunCounter, $(P)$(R)OverrunCounter_RBV
     - longout, longin
-  * - PvName
-    - asynOctet
-    - r/w
-    - Name of the PV to monitor. This can be changed a run-time.
-    - ``PV_NAME``
-    - ``$(P)$(R)PvName``, ``$(P)$(R)PvName_RBV``
+  * - Name of the PV to monitor. This can be changed a run-time.
+    - $(P)$(R)PvName, $(P)$(R)PvName_RBV
     - waveform, waveform
-  * - PvConnectionStatus
-    - asynInt32
-    - r/o
-    - Status of the connection to the server
-    - ``PV_CONNECTION``
-    - ``$(P)$(R)PvConnection_RBV``
+  * - Status of the connection to the server
+    - $(P)$(R)PvConnection_RBV
     - bi
 
 
@@ -95,7 +79,7 @@ The pvaDriver-specific fields in this command are:
 + ``pvName`` Name of the PV to be monitored.
 
 For details on the meaning of the other parameters to this function refer to
-the detailed documentation on the ``pvaDriverConfig`` function in the
+the detailed documentation on the pvaDriverConfig function in the
 `pvaDriver.cpp documentation`_ and in the documentation for the constructor
 for the `pvaDriver class`_.
 
