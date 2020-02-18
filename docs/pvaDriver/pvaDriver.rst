@@ -45,15 +45,12 @@ The pvAccess driver-specific parameters are the following:
   :header-rows: 2
   :widths: 60 20 20
 
-  * -
-    -
-    - **Parameter Definitions in pvaDriver.cpp and EPICS Record Definitions**
-      **in pvaDriver.template**
+  * - Parameter Definitions in pvaDriver.cpp and EPICS Record Definitions in pvaDriver.template
   * - Description
     - EPICS record name
     - EPICS record type
   * - Number of overruns occurred
-     - $(P)$(R)OverrunCounter, $(P)$(R)OverrunCounter_RBV
+    - $(P)$(R)OverrunCounter, $(P)$(R)OverrunCounter_RBV
     - longout, longin
   * - Name of the PV to monitor. This can be changed a run-time.
     - $(P)$(R)PvName, $(P)$(R)PvName_RBV
