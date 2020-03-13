@@ -83,6 +83,11 @@ for the `pvaDriver class`_.
 Example st.cmd startup file
 ---------------------------
 
+.. toctree::
+   :hidden:
+   
+   st_cmd.rst
+
 There is an example IOC boot directory and startup script provided with pvaDriver: :doc:`st_cmd`.
 
 MEDM screens
