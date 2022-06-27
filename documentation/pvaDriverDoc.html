@@ -146,12 +146,13 @@
   <pre>int pvaDriverConfig(const char *portName, const char *pvName,
                       int maxSizeX, int maxSizeY, int dataType,
                       int maxBuffers, size_t maxMemory,
-                      int priority, int stackSize)
+                      int priority, int stackSize, int pvaQueueSize)
   </pre>
   <p>
     The pvaDriver-specific fields in this command are:</p>
   <ul>
     <li><code>pvName</code> Name of the PV to be monitored.</li>
+    <li><code>pvaQueueSize</code> The size of the queueSize parameter for the PVAccess request (optional).</li>
   </ul>
   <p>
     For details on the meaning of the other parameters to this function refer to the

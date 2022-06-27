@@ -23,7 +23,7 @@ class epicsShareClass pvaDriver : public ADDriver,
 
 public:
     pvaDriver (const char *portName, const char *pvName, int maxBuffers,
-            size_t maxMemory, int priority, int stackSize);
+	       size_t maxMemory, int priority, int stackSize, const char *pvaRequest);
 
     // Overriden from ADDriver:
     asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
