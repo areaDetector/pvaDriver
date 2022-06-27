@@ -23,8 +23,7 @@
 #include <epicsExport.h>
 #include "pvaDriver.h"
 
-//#define DEFAULT_REQUEST "record[queueSize=100]field()"
-#define DEFAULT_REQUEST "field()"
+#define PVA_REQUEST_SIZE 128
 
 using namespace std;
 using namespace epics::pvData;
@@ -53,11 +52,11 @@ static const char *driverName = "pvaDriver";
  *            ASYN_CANBLOCK is set in asynFlags.
  */
 pvaDriver::pvaDriver (const char *portName, const char *pvName,
-        int maxBuffers, size_t maxMemory, int priority, int stackSize)
+      int maxBuffers, size_t maxMemory, int priority, int stackSize, const char *pvaRequest)
 
     : ADDriver(portName, 1, NUM_PVA_DRIVER_PARAMS, maxBuffers, maxMemory, 0, 0, ASYN_CANBLOCK, 1,
             priority, stackSize),
-      m_pvName(pvName), m_request(DEFAULT_REQUEST),
+      m_pvName(pvName), m_request(pvaRequest),
       m_priority(ChannelProvider::PRIORITY_DEFAULT),
       m_channel(), m_pvRequest(CreateRequest::create()->createRequest(m_request)),
       m_thisPtr(tr1::shared_ptr<pvaDriver>(this))
@@ -454,9 +453,15 @@ void pvaDriver::report (FILE *fp, int details)
 
 /** Configuration command, called directly or from iocsh */
 extern "C" int pvaDriverConfig (const char *portName, char *pvName,
-        int maxBuffers, int maxMemory, int priority, int stackSize)
+				int maxBuffers, int maxMemory, int priority, int stackSize, int pvaQueueSize=0)
 {
-    new pvaDriver(portName, pvName, maxBuffers, maxMemory, priority, stackSize);
+    char pvaRequest[PVA_REQUEST_SIZE] = {0};
+    if (pvaQueueSize <= 0) {
+      snprintf(pvaRequest, PVA_REQUEST_SIZE, "field()");
+    } else {
+      snprintf(pvaRequest, PVA_REQUEST_SIZE, "record[queueSize=%d]field()", pvaQueueSize);
+    }
+    new pvaDriver(portName, pvName, maxBuffers, maxMemory, priority, stackSize, pvaRequest);
     return(asynSuccess);
 }
 
@@ -467,17 +472,18 @@ static const iocshArg pvaDriverConfigArg2 = {"maxBuffers", iocshArgInt};
 static const iocshArg pvaDriverConfigArg3 = {"maxMemory", iocshArgInt};
 static const iocshArg pvaDriverConfigArg4 = {"priority", iocshArgInt};
 static const iocshArg pvaDriverConfigArg5 = {"stackSize", iocshArgInt};
+static const iocshArg pvaDriverConfigArg6 = {"pvaQueueSize", iocshArgInt};
 static const iocshArg * const pvaDriverConfigArgs[] = {
         &pvaDriverConfigArg0, &pvaDriverConfigArg1, &pvaDriverConfigArg2,
-        &pvaDriverConfigArg3, &pvaDriverConfigArg4, &pvaDriverConfigArg5};
+        &pvaDriverConfigArg3, &pvaDriverConfigArg4, &pvaDriverConfigArg5, &pvaDriverConfigArg6};
 
-static const iocshFuncDef configpvaDriver = {"pvaDriverConfig", 6,
+static const iocshFuncDef configpvaDriver = {"pvaDriverConfig", 7,
         pvaDriverConfigArgs};
 
 static void configpvaDriverCallFunc (const iocshArgBuf *args)
 {
     pvaDriverConfig(args[0].sval, args[1].sval, args[2].ival, args[3].ival,
-            args[4].ival, args[5].ival);
+		    args[4].ival, args[5].ival, args[6].ival);
 }
 
 static void pvaDriverRegister (void)
