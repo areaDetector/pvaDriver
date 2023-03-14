@@ -10,5 +10,5 @@ allow any EPICS V4 server to send NTNDArrays to the IOC.
 
 
 Additional information:
-* [Documentation](https://areadetector.github.io/master/pvaDriver/pvaDriver.html)
+* [Documentation](https://areadetector.github.io/areaDetector/pvaDriver/pvaDriver.html)
 * [Release notes and links to source and binary releases](RELEASE.md)
