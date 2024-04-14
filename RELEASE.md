@@ -16,9 +16,11 @@ files respectively, in the configure/ directory of the appropriate release of th
 Release Notes
 =============
 
-R1-6 (February XXX, 2019)
+R1-6 (April 14, 2024)
 ====================
 * Improve NTNDArray exception handling.
+* Add .bob files for Phoebus.
+* Convert documentation to .rst files in docs/.
 
 
 R1-5 (July 2, 2018)
